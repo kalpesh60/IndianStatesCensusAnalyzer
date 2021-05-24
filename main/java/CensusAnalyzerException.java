@@ -1,7 +1,11 @@
 public class CensusAnalyzerException extends Exception{
 
+    public CensusAnalyzerException(CensusExceptionType buildErrors) {
+
+    }
+
     enum CensusExceptionType{
-        NO_SUCH_FILE,
+        NO_SUCH_FILE, BUILD_ERRORS, WRONG_TYPE,
     }
     CensusExceptionType type;
 

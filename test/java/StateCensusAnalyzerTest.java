@@ -5,6 +5,7 @@ public class StateCensusAnalyzerTest {
 
     private static final String INDIA_STATE_CSV_FILEPATH = "./src/main/resources/IndiaStateCensusData.csv";
     private static final String INCORRECT_FILE = "./src";
+    private static final String WRONG_FILE_TYPE = "./src/main/resources/IndiaStateCensusData.txt";
 
     @Test
     public void givenIndiaCensusCSVFileShouldReturnCorrectRecords() throws CensusAnalyzerException {
@@ -22,6 +23,16 @@ public class StateCensusAnalyzerTest {
         } catch (CensusAnalyzerException e) {
             e.printStackTrace();
             Assertions.assertEquals(CensusAnalyzerException.CensusExceptionType.NO_SUCH_FILE, e.type);
+        }
+    }
+
+    @Test
+    public void givenSateCensusCSVFileWhenIncorrectTypeShouldThrowCustomException() {
+        StateCensusAnalyzer stateCensusAnalyzer = new StateCensusAnalyzer();
+        try {
+            stateCensusAnalyzer.loadIndiaCensusData(WRONG_FILE_TYPE);
+        } catch (CensusAnalyzerException e) {
+            Assertions.assertEquals(CensusAnalyzerException.CensusExceptionType.WRONG_TYPE, e.type);
         }
     }
 }

@@ -17,15 +17,16 @@ public class StateCensusAnalyzer {
             csvToBeanBuilder.withIgnoreLeadingWhiteSpace(true);
             CsvToBean<IndiaCensusCSV> csvToBean = csvToBeanBuilder.build();
             Iterator<IndiaCensusCSV> censusCSVIterator = csvToBean.iterator();
-            int namOfEtries = 0;
+            int numOfEntries = 0;
             while (censusCSVIterator.hasNext()) {
-                namOfEtries++;
+                numOfEntries++;
                 IndiaCensusCSV censusData = censusCSVIterator.next();
             }
-            return namOfEtries;
+            return numOfEntries;
         } catch (IOException e) {
-            throw new CensusAnalyzerException(CensusAnalyzerException.CensusExceptionType.NO_SUCH_FILE,
-                    e.getMessage());
+            throw new CensusAnalyzerException(CensusAnalyzerException.CensusExceptionType.NO_SUCH_FILE,e.getMessage());
+        } catch (RuntimeException e) {
+            throw new CensusAnalyzerException(CensusAnalyzerException.CensusExceptionType.WRONG_TYPE,"incorrect file type");
         }
     }
 }
