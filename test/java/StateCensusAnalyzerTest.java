@@ -6,6 +6,7 @@ public class StateCensusAnalyzerTest {
     private static final String INDIA_STATE_CSV_FILEPATH = "./src/main/resources/IndiaStateCensusData.csv";
     private static final String INCORRECT_FILE = "./src";
     private static final String WRONG_FILE_TYPE = "./src/main/resources/IndiaStateCensusData.txt";
+    private static final String WRONG_FILE_DELIMITER_HEADER = "./src/main/resources/IndiaStateCensusDataIncorrectDelimeter.csv";
 
     @Test
     public void givenIndiaCensusCSVFileShouldReturnCorrectRecords() throws CensusAnalyzerException {
@@ -33,6 +34,26 @@ public class StateCensusAnalyzerTest {
             stateCensusAnalyzer.loadIndiaCensusData(WRONG_FILE_TYPE);
         } catch (CensusAnalyzerException e) {
             Assertions.assertEquals(CensusAnalyzerException.CensusExceptionType.WRONG_TYPE, e.type);
+        }
+    }
+
+    @Test
+    public void givenSateCensusCSVFileWhenIncorrectDelimiterShouldThrowCustomException() {
+        StateCensusAnalyzer stateCensusAnalyzer = new StateCensusAnalyzer();
+        try {
+            stateCensusAnalyzer.loadIndiaCensusData(WRONG_FILE_DELIMITER_HEADER);
+        } catch (CensusAnalyzerException e) {
+            Assertions.assertEquals(CensusAnalyzerException.CensusExceptionType.WRONG_DELEMETER_HEADER, e.type);
+        }
+    }
+
+    @Test
+    public void givenSateCensusCSVFileWhenIncorrectHeaderShouldThrowCustomException() {
+        StateCensusAnalyzer stateCensusAnalyzer = new StateCensusAnalyzer();
+        try {
+            stateCensusAnalyzer.loadIndiaCensusData(WRONG_FILE_DELIMITER_HEADER);
+        } catch (CensusAnalyzerException e) {
+            Assertions.assertEquals(CensusAnalyzerException.CensusExceptionType.WRONG_DELEMETER_HEADER, e.type);
         }
     }
 }
