@@ -4,10 +4,9 @@ import org.junit.jupiter.api.Test;
 public class StateCensusAnalyzerTest {
 
     private static final String INDIA_STATE_CSV_FILEPATH = "./src/main/resources/IndiaStateCensusData.csv";
-    private static final String INCORRECT_FILE = "./src/IndiaStateCensusData.txt\"";
+    private static final String INCORRECT_FILE = "./src/IndiaStateCensusData.txt";
     private static final String WRONG_FILE_TYPE = "./src/main/resources/IndiaStateCensusData.txt";
     private static final String WRONG_FILE_DELIMITER_HEADER = "./src/main/resources/IndiaStateCensusDataIncorrectDelimeter.csv";
-    private static final String INDIA_STATE_CODE_CSV_FILEPATH = "./src/main/resources/IndiaStateCode.csv";;
 
     @Test
     public void givenIndiaCensusCSVFileShouldReturnCorrectRecords() throws CensusAnalyzerException {
@@ -55,25 +54,6 @@ public class StateCensusAnalyzerTest {
             stateCensusAnalyzer.loadIndiaCensusData(WRONG_FILE_DELIMITER_HEADER);
         } catch (CensusAnalyzerException e) {
             Assertions.assertEquals(CensusAnalyzerException.CensusExceptionType.WRONG_DELEMETER_HEADER, e.type);
-        }
-    }
-
-    @Test
-    public void givenIndiaStateCodeCSVFileShouldReturnCorrectRecords() throws CensusAnalyzerException {
-        StateCensusAnalyzer stateCensusAnalyzer = new StateCensusAnalyzer();
-        int numOfRecords = stateCensusAnalyzer.loadIndiaStateCodeData(INDIA_STATE_CODE_CSV_FILEPATH);
-        System.out.println(numOfRecords);
-        Assertions.assertEquals(37,numOfRecords);
-    }
-
-    @Test
-    public void givenStateCodeCSVFileIsIncorrectShouldThrowCustomException() {
-        StateCensusAnalyzer stateCensusAnalyzer = new StateCensusAnalyzer();
-        try {
-            stateCensusAnalyzer.loadIndiaStateCodeData(INCORRECT_FILE);
-        } catch (CensusAnalyzerException e) {
-            e.printStackTrace();
-            Assertions.assertEquals(CensusAnalyzerException.CensusExceptionType.NO_SUCH_FILE, e.type);
         }
     }
 }
