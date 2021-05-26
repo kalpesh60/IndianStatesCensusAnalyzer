@@ -65,4 +65,15 @@ public class StateCensusAnalyzerTest {
         System.out.println(numOfRecords);
         Assertions.assertEquals(37,numOfRecords);
     }
+
+    @Test
+    public void givenStateCodeCSVFileIsIncorrectShouldThrowCustomException() {
+        StateCensusAnalyzer stateCensusAnalyzer = new StateCensusAnalyzer();
+        try {
+            stateCensusAnalyzer.loadIndiaStateCodeData(INCORRECT_FILE);
+        } catch (CensusAnalyzerException e) {
+            e.printStackTrace();
+            Assertions.assertEquals(CensusAnalyzerException.CensusExceptionType.NO_SUCH_FILE, e.type);
+        }
+    }
 }
